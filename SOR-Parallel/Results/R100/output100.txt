@@ -1,0 +1,39 @@
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) zlib/.1.2.8
+
+rm -f bin/run_SOR
+rm -f obj/generate.o obj/misc.o obj/parallelSOR.o obj/parameters.o obj/parse.o obj/soriter.o
+icc -Iinc -Wall -xHost -O3 -qopt-report=5 -qopt-report-phase=all -qopenmp -c src/generate.c -o obj/generate.o
+icc: remark #10397: optimization reports are generated in *.optrpt files in the output location
+icc -Iinc -Wall -xHost -O3 -qopt-report=5 -qopt-report-phase=all -qopenmp -c src/misc.c -o obj/misc.o
+icc: remark #10397: optimization reports are generated in *.optrpt files in the output location
+icc -Iinc -Wall -xHost -O3 -qopt-report=5 -qopt-report-phase=all -qopenmp -c src/parallelSOR.c -o obj/parallelSOR.o
+icc: remark #10397: optimization reports are generated in *.optrpt files in the output location
+icc -Iinc -Wall -xHost -O3 -qopt-report=5 -qopt-report-phase=all -qopenmp -c src/parameters.c -o obj/parameters.o
+icc: remark #10397: optimization reports are generated in *.optrpt files in the output location
+icc -Iinc -Wall -xHost -O3 -qopt-report=5 -qopt-report-phase=all -qopenmp -c src/parse.c -o obj/parse.o
+icc: remark #10397: optimization reports are generated in *.optrpt files in the output location
+icc -Iinc -Wall -xHost -O3 -qopt-report=5 -qopt-report-phase=all -qopenmp -c src/soriter.c -o obj/soriter.o
+icc: remark #10397: optimization reports are generated in *.optrpt files in the output location
+icc -qopenmp  obj/generate.o obj/misc.o obj/parallelSOR.o obj/parameters.o obj/parse.o obj/soriter.o -o bin/run_SOR
+
+real	0m1.369s
+user	0m1.355s
+sys	0m0.002s
+
+real	0m0.729s
+user	0m1.431s
+sys	0m0.006s
+
+real	0m0.783s
+user	0m3.083s
+sys	0m0.006s
+
+real	0m0.869s
+user	0m6.845s
+sys	0m0.013s
+
+real	0m0.866s
+user	0m13.548s
+sys	0m0.034s

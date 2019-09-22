@@ -1,0 +1,160 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: generate_grid(cl_args *, params *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (generate_grid(cl_args *, params *)) [1/2=50.0%] src/generate.c(28,49)
+  -> EXTERN: (34,10) malloc(size_t)
+  -> EXTERN: (35,10) malloc(size_t)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at src/generate.c(38,3)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at src/generate.c(38,3)
+   remark #15388: vectorization support: reference gd.x has aligned access   [ src/generate.c(39,7) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.583
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 1.500 
+   remark #15478: estimated potential speedup: 4.420 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at src/generate.c(38,3)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference gd.x has aligned access   [ src/generate.c(39,7) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15309: vectorization support: normalized vectorization overhead 2.333
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at src/generate.c(38,3)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at src/generate.c(43,3)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at src/generate.c(43,3)
+   remark #15388: vectorization support: reference gd.y has aligned access   [ src/generate.c(44,7) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15309: vectorization support: normalized vectorization overhead 0.583
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 8 
+   remark #15477: vector loop cost: 1.500 
+   remark #15478: estimated potential speedup: 4.420 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at src/generate.c(43,3)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference gd.y has aligned access   [ src/generate.c(44,7) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15309: vectorization support: normalized vectorization overhead 2.333
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at src/generate.c(43,3)
+<Remainder loop for vectorization>
+LOOP END
+===========================================================================
+
+Begin optimization report for: generate_func(cl_args *, params *, grid *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (generate_func(cl_args *, params *, grid *)) [2/2=100.0%] src/generate.c(63,60)
+  -> EXTERN: (69,21) calloc(size_t, size_t)
+  -> EXTERN: (72,25) calloc(size_t, size_t)
+  -> EXTERN: (78,27) pow(double, double)
+  -> EXTERN: (78,57) pow(double, double)
+  -> EXTERN: (78,80) pow(double, double)
+  -> EXTERN: (78,112) pow(double, double)
+  -> EXTERN: (79,35) exp(double)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at src/generate.c(71,3)
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+LOOP END
+
+LOOP BEGIN at src/generate.c(76,3)
+   remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+   remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at src/generate.c(77,7)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at src/generate.c(77,7)
+      remark #15389: vectorization support: reference gd has unaligned access   [ src/generate.c(78,27) ]
+      remark #15388: vectorization support: reference fc.g has aligned access   [ src/generate.c(79,11) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15329: vectorization support: scatter was emulated for the variable fc.g:  indirect access, 64bit indexed   [ src/generate.c(79,11) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.210
+      remark #15300: LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15459: masked indexed (or scatter) stores: 1 
+      remark #15475: --- begin vector loop cost summary ---
+      remark #15476: scalar loop cost: 192 
+      remark #15477: vector loop cost: 44.000 
+      remark #15478: estimated potential speedup: 4.160 
+      remark #15482: vectorized math library calls: 1 
+      remark #15488: --- end vector loop cost summary ---
+   LOOP END
+
+   LOOP BEGIN at src/generate.c(77,7)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+===========================================================================

@@ -1,0 +1,50 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: calc_params(cl_args *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (calc_params(cl_args *)) [1/1=100.0%] src/parameters.c(25,34)
+  -> EXTERN: (41,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (42,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (43,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (44,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (45,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (46,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (47,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (48,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (49,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (50,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (51,3) printf(const char *__restrict__, ...)
+
+
+    Report from: Code generation optimizations [cg]
+
+src/parameters.c(53,10):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+src/parameters.c(53,10):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (1, 0)
+===========================================================================

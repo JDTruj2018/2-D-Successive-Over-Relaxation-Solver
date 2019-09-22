@@ -1,0 +1,79 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: print_results(cl_args *, result *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (print_results(cl_args *, result *)) [1/2=50.0%] src/misc.c(27,48)
+  -> EXTERN: (34,7) printf(const char *__restrict__, ...)
+  -> EXTERN: (36,5) printf(const char *__restrict__, ...)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at src/misc.c(32,3)
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
+
+   LOOP BEGIN at src/misc.c(33,5)
+      remark #15523: loop was not vectorized: loop control variable j was found, but loop iteration count cannot be computed before executing the loop
+      remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: clean_mem(cl_args *, grid *, func *, result *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (clean_mem(cl_args *, grid *, func *, result *)) [2/2=100.0%] src/misc.c(50,66)
+  -> EXTERN: (55,3) free(void *)
+  -> EXTERN: (56,3) free(void *)
+  -> EXTERN: (60,6) free(void *)
+  -> EXTERN: (62,3) free(void *)
+  -> EXTERN: (66,6) free(void *)
+  -> EXTERN: (68,3) free(void *)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at src/misc.c(59,3)
+   remark #15382: vectorization support: call to function free(void *) cannot be vectorized   [ src/misc.c(60,6) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between call:free(void *) line 60 and fc line 60
+   remark #15346: vector dependence: assumed ANTI dependence between fc line 60 and call:free(void *) line 60
+LOOP END
+
+LOOP BEGIN at src/misc.c(65,3)
+   remark #15382: vectorization support: call to function free(void *) cannot be vectorized   [ src/misc.c(66,6) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed FLOW dependence between call:free(void *) line 66 and res line 66
+   remark #15346: vector dependence: assumed ANTI dependence between res line 66 and call:free(void *) line 66
+LOOP END
+===========================================================================

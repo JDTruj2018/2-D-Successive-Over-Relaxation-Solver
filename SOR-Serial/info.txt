@@ -1,0 +1,4 @@
+Serial implementation of Successive Over-Relaxation method for two dimensional heat equation.
+I wrote this to help guide my parallel implementation. The parallel implementation will look much different.
+
+It uses a periodic boundary condition, and a Dirichlet boundary condition

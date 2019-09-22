@@ -1,0 +1,95 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: parse_command_line(const int, char **)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (parse_command_line(const int, char **)) [3/3=100.0%] src/parse.c(25,68)
+  -> EXTERN: (41,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (42,17) atof(const char *) (isz = 2) (sz = 9)
+    -> EXTERN: /usr/include/stdlib.h:(281,10) strtod(const char *__restrict__, char **__restrict__)
+  -> EXTERN: (44,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (45,17) atof(const char *) (isz = 2) (sz = 9)
+    -> EXTERN: /usr/include/stdlib.h:(281,10) strtod(const char *__restrict__, char **__restrict__)
+  -> EXTERN: (47,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (48,17) atoi(const char *) (isz = 4) (sz = 11)
+    -> EXTERN: /usr/include/stdlib.h:(286,16) strtol(const char *__restrict__, char **__restrict__, int)
+  -> EXTERN: (50,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (51,17) atoi(const char *) (isz = 4) (sz = 11)
+    -> EXTERN: /usr/include/stdlib.h:(286,16) strtol(const char *__restrict__, char **__restrict__, int)
+  -> EXTERN: (53,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (54,17) atof(const char *) (isz = 2) (sz = 9)
+    -> EXTERN: /usr/include/stdlib.h:(281,10) strtod(const char *__restrict__, char **__restrict__)
+  -> EXTERN: (56,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (57,16) atof(const char *) (isz = 2) (sz = 9)
+    -> EXTERN: /usr/include/stdlib.h:(281,10) strtod(const char *__restrict__, char **__restrict__)
+  -> EXTERN: (59,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (60,23) atoi(const char *) (isz = 4) (sz = 11)
+    -> EXTERN: /usr/include/stdlib.h:(286,16) strtol(const char *__restrict__, char **__restrict__, int)
+  -> EXTERN: (62,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (63,18) atof(const char *) (isz = 2) (sz = 9)
+    -> EXTERN: /usr/include/stdlib.h:(281,10) strtod(const char *__restrict__, char **__restrict__)
+  -> EXTERN: (65,12) strcmp(const char *, const char *)
+  -> INLINE (MANUAL): (66,24) atof(const char *) (isz = 2) (sz = 9)
+    -> EXTERN: /usr/include/stdlib.h:(281,10) strtod(const char *__restrict__, char **__restrict__)
+  -> EXTERN: (73,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (74,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (75,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (76,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (77,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (78,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (79,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (80,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (81,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (82,5) printf(const char *__restrict__, ...)
+  -> EXTERN: (83,5) printf(const char *__restrict__, ...)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at src/parse.c(40,5)
+   remark #15382: vectorization support: call to function strtod(const char *__restrict__, char **__restrict__) cannot be vectorized   [ /usr/include/stdlib.h(281,10) ]
+   remark #15382: vectorization support: call to function strtod(const char *__restrict__, char **__restrict__) cannot be vectorized   [ /usr/include/stdlib.h(281,10) ]
+   remark #15382: vectorization support: call to function strtol(const char *__restrict__, char **__restrict__, int) cannot be vectorized   [ /usr/include/stdlib.h(286,16) ]
+   remark #15382: vectorization support: call to function strtol(const char *__restrict__, char **__restrict__, int) cannot be vectorized   [ /usr/include/stdlib.h(286,16) ]
+   remark #15382: vectorization support: call to function strtod(const char *__restrict__, char **__restrict__) cannot be vectorized   [ /usr/include/stdlib.h(281,10) ]
+   remark #15382: vectorization support: call to function strtod(const char *__restrict__, char **__restrict__) cannot be vectorized   [ /usr/include/stdlib.h(281,10) ]
+   remark #15382: vectorization support: call to function strtol(const char *__restrict__, char **__restrict__, int) cannot be vectorized   [ /usr/include/stdlib.h(286,16) ]
+   remark #15382: vectorization support: call to function strtod(const char *__restrict__, char **__restrict__) cannot be vectorized   [ /usr/include/stdlib.h(281,10) ]
+   remark #15382: vectorization support: call to function strtod(const char *__restrict__, char **__restrict__) cannot be vectorized   [ /usr/include/stdlib.h(281,10) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed ANTI dependence between arg_array line 41 and call:strtod(const char *__restri line 281
+   remark #15346: vector dependence: assumed FLOW dependence between  line 281 and arg_array line 41
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+src/parse.c(85,12):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
+src/parse.c(85,12):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (1, 0)
+===========================================================================

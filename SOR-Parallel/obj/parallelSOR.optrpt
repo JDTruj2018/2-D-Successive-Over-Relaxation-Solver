@@ -1,0 +1,41 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: main(int, char **)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (main(int, char **)) [1/1=100.0%] src/parallelSOR.c(20,34)
+  -> EXTERN: (21,44) parse_command_line(const int, char **)
+  -> EXTERN: (22,32) calc_params(cl_args *)
+  -> EXTERN: (23,35) generate_grid(cl_args *, params *)
+  -> EXTERN: (24,42) generate_func(cl_args *, params *, grid *)
+  -> EXTERN: (25,46) sor_iter(cl_args *, params *, grid *, func *)
+  -> EXTERN: (27,5) print_results(cl_args *, result *)
+  -> EXTERN: (28,5) clean_mem(cl_args *, grid *, func *, result *)
+
+===========================================================================
